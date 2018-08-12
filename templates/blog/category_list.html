@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+      {% include 'blog/include_head.html' %}
+      <title>文章分类 - 辛东兴的个人网站</title>
+  </head>
+ <div>
+
+    {% include 'blog/include_nav.html' %}
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8 blog-main">
+          <h5 class="pb-3 mb-4 border-bottom">
+            所有分类
+          </h5>
+
+        {% for category in categories %}
+          <div class="blog-post">
+            <a href="{% url 'blog:article_list' %}?category={{category.id}}"><h5>{{category.name}}</h5></a>
+            <hr>
+          </div><!-- /.blog-post -->
+        {% empty %}
+            博主太懒，居然没有分类。
+        {% endfor %}
+
+
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">Timeline</h5>
+            <p class="mb-0">2018年8月</p>
+            <p class="mb-0">2018年7月</p>
+            <p class="mb-0">2018年6月</p>
+            <p class="mb-0">2018年5月</p>
+          </div>
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">微信公众号</h5>
+            <p class="mb-0">「一只技术宅」是我的个人微信公众号，欢迎扫码订阅。</p><br/>
+            <img src="/static/images/qrcode.png" style="max-width:50%;margin-left:25%;"/>
+          </div>
+
+       <!--    <div class="p-3">
+            <h4 class="">Archives</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#">2018/08</a></li>
+            </ol>
+          </div> -->
+
+          <div class="p-3">
+            <h5 class="">链接</h5>
+            <ol class="list-unstyled">
+              <li><a href="http://blog.codingcat.cn/" target="_blank">技术博客</a></li>
+              <li><a href="https://http.cat/" target="_blank">HTTP.CAT 吸猫</a></li>
+              <li><a href="http://cv.ftqq.com/" target="_blank">冷熊简历</a></li>
+            </ol>
+          </div>
+
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+
+ {% include 'blog/include_footer.html' %}
+    
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+      {% include 'blog/include_head.html' %}
+      <title>首页 - 辛东兴的个人网站</title>
+  </head>
+ <div>
+
+    {% include 'blog/include_nav.html' %}
+
+    <div class="container">
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background:url('/static/images/stars.png') no-repeat;background-size:cover;">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">Hello World !</h1>
+          <p class="lead my-3">欢迎来到辛东兴的个人网站</p>
+        <!--   <p class="lead mb-0"><a href="https://getbootstrap.com/docs/4.1/examples/blog/#" class="text-white font-weight-bold">Continue reading...</a></p> -->
+        </div>
+      </div>
+    </div>
+
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8 blog-main">
+          <h5 class="pb-3 mb-4 border-bottom">
+            文章推荐
+          </h5>
+
+        {% for article in pin_articles %}
+          <div class="blog-post">
+            <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
+            <p class="blog-post-meta"><span class="badge badge-primary">置顶</span> {{article.time}}</p>
+            <p>{{article.description}}</p>
+            <hr>
+          </div><!-- /.blog-post -->
+        {% endfor %}
+
+        {% for article in recent_articles %}
+          <div class="blog-post">
+            <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
+            <p class="blog-post-meta">{{article.time}}</p>
+            <p>{{article.description}}</p>
+            <hr>
+          </div><!-- /.blog-post -->
+        {% endfor %}
+
+
+
+         <nav class="blog-pagination">
+            <a class="btn btn-outline-secondary" href="{% url 'blog:article_list' %}">查看更多</a>
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">标签云</h5>
+            <p class="mb-0">本网站由一只技术宅构建。微信扫一扫</p><br/>
+          </div>
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">微信公众号</h5>
+            <p class="mb-0">「一只技术宅」是我的个人微信公众号，欢迎扫码订阅。</p><br/>
+            <img src="/static/images/qrcode.png" style="max-width:50%;margin-left:25%;"/>
+          </div>
+
+       <!--    <div class="p-3">
+            <h4 class="">Archives</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#">2018/08</a></li>
+            </ol>
+          </div> -->
+
+          <div class="p-3">
+            <h5 class="">链接</h5>
+            <ol class="list-unstyled">
+              <li><a href="http://blog.codingcat.cn/" target="_blank">技术博客</a></li>
+              <li><a href="https://http.cat/" target="_blank">HTTP.CAT 吸猫</a></li>
+              <li><a href="http://cv.ftqq.com/" target="_blank">冷熊简历</a></li>
+            </ol>
+          </div>
+
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+
+ {% include 'blog/include_footer.html' %}
+    
+
+</body>
+</html>

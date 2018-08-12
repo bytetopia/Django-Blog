@@ -1,0 +1,99 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+      {% include 'blog/include_head.html' %}
+      <title>文章列表 - 辛东兴的个人网站</title>
+  </head>
+ <div>
+
+    {% include 'blog/include_nav.html' %}
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8 blog-main">
+          <h5 class="pb-3 mb-4 border-bottom">
+            文章列表
+          </h5>
+
+        {% for article in articles.object_list %}
+          <div class="blog-post">
+            <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
+            <p class="blog-post-meta">{{article.time}}</p>
+            <p>{{article.description}}</p>
+            <hr>
+          </div><!-- /.blog-post -->
+        {% empty %}
+            博主太懒，什么都没写。
+        {% endfor %}
+
+
+         <nav aria-label="Page navigation example">
+          <ul class="pagination">
+              {% if articles.has_previous %}
+            <li class="page-item"><a class="page-link" href="{% url 'blog:article_list' %}?page={{articles.previous_page_number}}&{{filter_string}}">前一页</a></li>
+              {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">前一页</a></li>
+              {% endif %}
+
+              <li class="page-item"><a class="page-link" href="#">第 {{articles.number}} 页，共 {{articles.paginator.num_pages}} 页</a></li>
+
+            {% if articles.has_next %}
+            <li class="page-item"><a class="page-link" href="{% url 'blog:article_list' %}?page={{articles.next_page_number}}&{{filter_string}}">后一页</a></li>
+              {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">后一页</a></li>
+              {% endif %}
+
+          </ul>
+        </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">Timeline</h5>
+            <p class="mb-0">2018年8月</p>
+            <p class="mb-0">2018年7月</p>
+            <p class="mb-0">2018年6月</p>
+            <p class="mb-0">2018年5月</p>
+          </div>
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">微信公众号</h5>
+            <p class="mb-0">「一只技术宅」是我的个人微信公众号，欢迎扫码订阅。</p><br/>
+            <img src="/static/images/qrcode.png" style="max-width:50%;margin-left:25%;"/>
+          </div>
+
+       <!--    <div class="p-3">
+            <h4 class="">Archives</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#">2018/08</a></li>
+            </ol>
+          </div> -->
+
+          <div class="p-3">
+            <h5 class="">链接</h5>
+            <ol class="list-unstyled">
+              <li><a href="http://blog.codingcat.cn/" target="_blank">技术博客</a></li>
+              <li><a href="https://http.cat/" target="_blank">HTTP.CAT 吸猫</a></li>
+              <li><a href="http://cv.ftqq.com/" target="_blank">冷熊简历</a></li>
+            </ol>
+          </div>
+
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+
+ {% include 'blog/include_footer.html' %}
+    
+
+</body>
+</html>
