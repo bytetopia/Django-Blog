@@ -1,6 +1,8 @@
 from django.contrib import admin
 from . import models
 
+admin.site.site_header = '博客管理后台'
+
 
 # Register your models here.
 @admin.register(models.Category)
@@ -25,6 +27,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'time', 'status']
     list_per_page = 30
     inlines = [CommentInline]
+    readonly_fields = ['text']
 
 
 

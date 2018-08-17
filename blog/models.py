@@ -64,12 +64,11 @@ class Comment(models.Model):
     status = models.IntegerField('状态', choices=STATUS_CHOICES)
 
     def __str__(self):
-        return self.user + ' - ' + self.article.name
+        return self.user + ' - ' + self.article.title
 
     class Meta:
         verbose_name = '评论'
         verbose_name_plural = '评论'
-
 
 
 

@@ -9,4 +9,8 @@ urlpatterns = [
     url(r'^categories', views.category_list, name='category_list'),  # 所有分类页
     url(r'^tags', views.tag_list, name='tag_list'),  # 所有标签
     url(r'^about', views.about_page, name='about_page'),  # 关于 页面
+
+    url(r'^editor/article', views.admin_edit_article, name='admin_edit_article'),  # 管理后台编写文章
+    url(r'^editor/save', views.admin_edit_save, name='admin_edit_save'),  # 异步保存文章
+    url(r'^editor/image_upload', views.admin_image_upload, name='admin_image_upload'),  # 上传图片
 ]

@@ -5,12 +5,12 @@
 
 <html>
   <head>
-      {% include 'blog/include_head.html' %}
+      {% include 'blog/includes/head.html' %}
       <title>文章列表 - 辛东兴的个人网站</title>
   </head>
  <div>
 
-    {% include 'blog/include_nav.html' %}
+    {% include 'blog/includes/nav.html' %}
 
 
     <main role="main" class="container">
@@ -28,10 +28,11 @@
             <hr>
           </div><!-- /.blog-post -->
         {% empty %}
-            博主太懒，什么都没写。
+            博主太懒，这里什么都没写。<br/>
         {% endfor %}
 
-
+        {% if articles.object_list %}
+            <br/><br/>
          <nav aria-label="Page navigation example">
           <ul class="pagination">
               {% if articles.has_previous %}
@@ -40,16 +41,17 @@
             <li class="page-item disabled"><a class="page-link" href="#">前一页</a></li>
               {% endif %}
 
-              <li class="page-item"><a class="page-link" href="#">第 {{articles.number}} 页，共 {{articles.paginator.num_pages}} 页</a></li>
+              <li class="page-item"><a class="page-link" style="color:black;" href="#">第 {{articles.number}} 页，共 {{articles.paginator.num_pages}} 页</a></li>
 
             {% if articles.has_next %}
             <li class="page-item"><a class="page-link" href="{% url 'blog:article_list' %}?page={{articles.next_page_number}}&{{filter_string}}">后一页</a></li>
               {% else %}
             <li class="page-item disabled"><a class="page-link" href="#">后一页</a></li>
               {% endif %}
-
           </ul>
         </nav>
+
+          {% endif %}
 
         </div><!-- /.blog-main -->
 
@@ -63,27 +65,6 @@
             <p class="mb-0">2018年5月</p>
           </div>
 
-          <div class="p-3 mb-3 bg-light rounded">
-            <h5 class="">微信公众号</h5>
-            <p class="mb-0">「一只技术宅」是我的个人微信公众号，欢迎扫码订阅。</p><br/>
-            <img src="/static/images/qrcode.png" style="max-width:50%;margin-left:25%;"/>
-          </div>
-
-       <!--    <div class="p-3">
-            <h4 class="">Archives</h4>
-            <ol class="list-unstyled mb-0">
-              <li><a href="#">2018/08</a></li>
-            </ol>
-          </div> -->
-
-          <div class="p-3">
-            <h5 class="">链接</h5>
-            <ol class="list-unstyled">
-              <li><a href="http://blog.codingcat.cn/" target="_blank">技术博客</a></li>
-              <li><a href="https://http.cat/" target="_blank">HTTP.CAT 吸猫</a></li>
-              <li><a href="http://cv.ftqq.com/" target="_blank">冷熊简历</a></li>
-            </ol>
-          </div>
 
         </aside><!-- /.blog-sidebar -->
 
@@ -92,7 +73,7 @@
     </main><!-- /.container -->
 
 
- {% include 'blog/include_footer.html' %}
+ {% include 'blog/includes/footer.html' %}
     
 
 </body>

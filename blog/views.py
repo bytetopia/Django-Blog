@@ -1,4 +1,13 @@
+import json
+import os
+
+import uuid
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
 from . import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -7,9 +16,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def index_page(req):
     pin_articles = models.Article.objects.filter(status=1, pin=1).order_by('-time')
     recent_articles = models.Article.objects.filter(status=1).order_by('-time')[:5]
+    categories = models.Category.objects.all()
+    tags = models.Tag.objects.all()
     context = {
         'pin_articles': pin_articles,
         'recent_articles': recent_articles,
+        'categories': categories,
+        'tags': tags,
     }
     return render(req, 'blog/index.html', context=context)
 
@@ -65,3 +78,62 @@ def tag_list(req):
 
 def about_page(req):
     return render(req, 'blog/about.html')
+
+
+@login_required(login_url='/manager/login/')
+def admin_edit_article(req):
+    article_id = req.GET['id']
+    article = models.Article.objects.filter(id=int(article_id))
+    if len(article) != 1:
+        return HttpResponse('参数错误，未找到这篇文章。')
+    article = article[0]
+    context = {
+        'article': article
+    }
+    return render(req, 'blog/admin/editor.html', context=context)
+
+
+@csrf_exempt
+@login_required(login_url='/manager/login/')
+def admin_edit_save(req):
+    data = req.POST.get('editormd-markdown-doc', None)
+    article_id = req.POST.get('id', None)
+    if id and data:
+        article = models.Article.objects.filter(id=int(article_id))
+        if len(article) == 1:
+            article = article[0]
+            article.text = data
+            article.save()
+            msg = '保存成功。'
+        else:
+            msg = '文章id错误，保存失败。'
+    else:
+        msg = '数据格式错误，保存失败。'
+    result = {
+        'status': msg,
+    }
+    return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+@csrf_exempt
+@login_required(login_url='/manager/login/')
+def admin_image_upload(req):
+    data = req.FILES.get('editormd-image-file', None)
+    if data:
+        extension = os.path.splitext(data.name)[-1]
+        file_name = str(uuid.uuid1())
+        with open(os.path.join(settings.BASE_DIR, 'uploads', 'images', file_name) + extension, 'wb+') as destination:
+            for chunk in data.chunks():
+                destination.write(chunk)
+        result = {
+            'success': 1,
+            'message': '上传成功。',
+            'url': '/uploads/images/' + file_name + extension,
+        }
+    else:
+        result = {
+            'success': 0,
+            'message': '上传失败，请重试。',
+            'url': '/',
+        }
+    return HttpResponse(json.dumps(result), content_type='application/json')

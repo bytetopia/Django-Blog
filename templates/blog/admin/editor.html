@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height:100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>写文章</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/custom_font.css' %}" rel="stylesheet">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'editormd/css/editormd.min.css' %}"/>
+</head>
+<body style="height:100%;">
+
+    <div style="width:100%;height:90%;padding:2%;">
+
+        <h3 style="float:left;">写文章</h3>
+        <button id="saveButton" class="btn btn-outline-primary" style="float:right;" onclick="ajaxSave()">保存</button>
+        <p id="saveMessage" style="float:right;padding:10px 20px;color:dodgerblue;"></p>
+
+        <br/><br/><br/>
+        <form id="dataForm" style="height:100%;">
+            <div id="editormd">
+                    <textarea id="editor-content">{{article.text}}</textarea>
+                    <input type="hidden" name="id" value="{{article.id}}"/>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'editormd/editormd.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+        // 修复editor.md在chrome中不能响应按钮点击的问题
+        editormd.mouseOrTouch = function(mouseEventType, touchEventType) {
+            mouseEventType = mouseEventType || "click";
+            touchEventType = touchEventType || "touchend";
+
+            var eventType  = mouseEventType;
+
+            try {
+                document.createEvent("TouchEvent");
+                eventType = touchEventType;
+            } catch(e) {}
+
+            try {
+                document.createEvent("MouseEvent");
+                eventType = mouseEventType;
+            } catch(e) {}
+
+            return eventType;
+        };
+
+        // 初始化 editor
+        $(function() {
+            var editor = editormd("editormd", {
+                path : "{% static 'editormd/lib/' %}",
+                imageUpload : true,
+                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "{% url 'blog:admin_image_upload' %}",
+            });
+
+        });
+
+
+        // 保存
+        function ajaxSave(){
+            $.ajax({
+                    type:'post',
+                    url:'{% url 'blog:admin_edit_save' %}',
+                    data: $("#dataForm").serialize(),
+                    cache:false,
+                    dataType:'json',
+                    success:function(data){
+                        // alert(data.status);
+                        $('#saveMessage').text(data.status);
+                        window.setTimeout(function(){
+                            $('#saveMessage').text('');
+                        },3000);
+                    },
+                    error:function(data){
+                        alert('保存出错！与服务器的通信中断，请检查网络。');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

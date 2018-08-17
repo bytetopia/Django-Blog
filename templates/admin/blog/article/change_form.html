@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}
+
+{% block form_top %}
+<br/>
+<a style="display: block;
+    background: #ba2121;
+    border-radius: 4px;
+    padding: 10px 15px;
+    height: 15px;
+    width: 150px;
+    line-height: 15px;
+    color: #fff;" href="{% url 'blog:admin_edit_article' %}?id={{original.id}}" target="_blank">点这里 打开文章编辑器</a>
+<br/><br/>
+{% endblock %}

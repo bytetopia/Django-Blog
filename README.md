@@ -20,6 +20,7 @@
 - Markdown：使用 Editor.md （待添加）
 - 数据库：基于 Mysql
 - 搜索：基于 haystack 和 whoosh （待添加）
+- 标签文字云：JQCloud
 
 项目不断更新完善中。欢迎 star、fork 和 PR。
 

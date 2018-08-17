@@ -5,12 +5,13 @@
 
 <html>
   <head>
-      {% include 'blog/include_head.html' %}
+      {% include 'blog/includes/head.html' %}
       <title>首页 - 辛东兴的个人网站</title>
+      <link href="{% static 'css/jqcloud.min.css' %}" rel="stylesheet">
   </head>
  <div>
 
-    {% include 'blog/include_nav.html' %}
+    {% include 'blog/includes/nav.html' %}
 
     <div class="container">
       <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background:url('/static/images/stars.png') no-repeat;background-size:cover;">
@@ -61,30 +62,31 @@
 
           <div class="p-3 mb-3 bg-light rounded">
             <h5 class="">标签云</h5>
-            <p class="mb-0">本网站由一只技术宅构建。微信扫一扫</p><br/>
+            <div id="cloud" style="min-height:150px;width:100%;">
+            </div>
           </div>
 
           <div class="p-3 mb-3 bg-light rounded">
-            <h5 class="">微信公众号</h5>
-            <p class="mb-0">「一只技术宅」是我的个人微信公众号，欢迎扫码订阅。</p><br/>
-            <img src="/static/images/qrcode.png" style="max-width:50%;margin-left:25%;"/>
+            <h5 class="">文章分类</h5>
+            <ul class="list-group list-group-flush">
+              {% for category in categories %}
+                <li class="list-group-item" style="background-color:#F8F9FA;">
+                    <a href="{% url 'blog:article_list' %}?category={{category.id}}">
+                        {{category.name}}
+                        <span class="badge badge-primary badge-pill float-right">{{category.article_set.count}}</span>
+                    </a>
+                </li>
+              {% empty %}
+              哎呀，还没有分类。
+              {% endfor %}
+            </ul>
+
           </div>
 
-       <!--    <div class="p-3">
-            <h4 class="">Archives</h4>
-            <ol class="list-unstyled mb-0">
-              <li><a href="#">2018/08</a></li>
-            </ol>
-          </div> -->
 
-          <div class="p-3">
-            <h5 class="">链接</h5>
-            <ol class="list-unstyled">
-              <li><a href="http://blog.codingcat.cn/" target="_blank">技术博客</a></li>
-              <li><a href="https://http.cat/" target="_blank">HTTP.CAT 吸猫</a></li>
-              <li><a href="http://cv.ftqq.com/" target="_blank">冷熊简历</a></li>
-            </ol>
-          </div>
+          {% include 'blog/includes/aside_wechat.html' %}
+          {% include 'blog/includes/aside_links.html' %}
+
 
         </aside><!-- /.blog-sidebar -->
 
@@ -93,7 +95,20 @@
     </main><!-- /.container -->
 
 
- {% include 'blog/include_footer.html' %}
+ {% include 'blog/includes/footer.html' %}
+
+     <script src="{% static 'js/jqcloud.min.js' %}"></script>
+     <script>
+         var words = [
+             {% for tag in tags %}
+              {text: "{{tag.name}}", weight: {{tag.article_set.count}}, link: "{% url 'blog:article_list'%}?tag={{tag.id}}"},
+             {% endfor %}
+            ];
+
+            $('#cloud').jQCloud(words, {
+              shape: 'rectangular'
+            });
+     </script>
     
 
 </body>
