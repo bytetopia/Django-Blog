@@ -5,7 +5,7 @@ import uuid
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from . import models
@@ -54,8 +54,12 @@ def article_list(req):
 
 def article_detail(req, article_id):
     article = models.Article.objects.filter(id=int(article_id))[0]
+    pinned_comments = models.Comment.objects.filter(article=article, status=1).order_by('-time')
+    normal_comments = models.Comment.objects.filter(article=article, status=0).order_by('-time')
     context = {
         'article': article,
+        'pinned_comments': pinned_comments,
+        'normal_comments': normal_comments
     }
     return render(req, 'blog/article_detail.html', context=context)
 
@@ -78,6 +82,27 @@ def tag_list(req):
 
 def about_page(req):
     return render(req, 'blog/about.html')
+
+
+def submit_comment(req):
+    comment = models.Comment()
+    user = req.POST.get('nickName', None)
+    email = req.POST.get('email', None)
+    text = req.POST.get('content', None)
+    article_id = req.POST.get('aid', '-1')
+    article = models.Article.objects.filter(id=int(article_id))
+    if text and len(article) == 1:
+        article = article[0]
+        if not user.strip():
+            user = '匿名用户'
+        if not email.strip():
+            email = '未提供'
+        comment.user = user
+        comment.email = email
+        comment.text = text
+        comment.article = article
+        comment.save()
+    return redirect('/article/' + article_id)
 
 
 @login_required(login_url='/manager/login/')

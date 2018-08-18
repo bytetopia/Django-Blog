@@ -17,6 +17,14 @@ class TagAdmin(admin.ModelAdmin):
     list_per_page = 30
 
 
+@admin.register(models.Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'article', 'time', 'status']
+    list_editable = ['status']
+    list_per_page = 30
+    ordering = ['-time']
+
+
 class CommentInline(admin.StackedInline):
     model = models.Comment
     extra = 0
@@ -27,7 +35,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'time', 'status']
     list_per_page = 30
     inlines = [CommentInline]
-    readonly_fields = ['text']
+    exclude = ['text']
 
 
 

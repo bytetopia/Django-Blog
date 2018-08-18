@@ -45,22 +45,80 @@
           <div class="blog-post">
             <h3>{{article.title}}</h3>
             <p class="blog-post-meta">{{article.time}}</p>
-
-            <p class="bg-light" style="padding:1rem;">
+            <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
             </p>
-
-              <div id="renderMd">{{article.text}}</div>
-
+            <br/>
+            <div id="renderMd">{{article.text}}</div>
           </div><!-- /.blog-post -->
 
             <br/><br/>
+            <hr/>
+            <br/>
 
-         <nav class="blog-pagination">
-            <a class="btn btn-outline-secondary" href="#">查看更多</a>
-          </nav>
+            <h3>
+                留言
+                <a class="btn btn-sm btn-outline-primary" style="float:right;" data-toggle="collapse" href="#addCommentCollapse">
+                   写留言
+                </a>
+            </h3>
+            <br/>
+
+            <div class="collapse" id="addCommentCollapse">
+              <div class="card card-body">
+                  <form action="{% url 'blog:submit_comment' %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="aid" value="{{article.id}}"/>
+                      <div class="row">
+                          <div class="form-group col-sm-12 col-md-6">
+                            <label for="nickName" class="">昵称</label>
+                            <input type="text" class="form-control" id="nickName" name="nickName" placeholder="请填写">
+                          </div>
+                          <div class="form-group col-sm-12 col-md-6">
+                            <label for="email" class="">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="请填写">
+                          </div>
+                      </div>
+                      <div class="row">
+                           <div class="form-group col-sm-12">
+                               <label for="content">留言内容 <span style="color:red;">*</span></label>
+                               <textarea class="form-control" id="content" name="content" required rows="3"></textarea>
+                           </div>
+                      </div>
+                      <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                  </form>
+              </div>
+                <br/>
+            </div>
+
+
+            {% for comment in pinned_comments %}
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-subtitle text-muted" style="margin-bottom:5px;" title="{{comment.email}}">
+                    {{comment.user}} <span class="badge badge-primary">置顶</span>
+                    <span style="font-size:0.8rem;color:gray;float:right;">{{comment.time}}  </span>
+                </h6>
+                <p class="card-text">{{comment.text}}</p>
+              </div>
+            </div>
+            <br/>
+            {% endfor %}
+            {% for comment in normal_comments %}
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-subtitle text-muted" style="margin-bottom:5px;" title="{{comment.email}}">
+                    {{comment.user}}
+                    <p style="font-size:0.8rem;color:gray;float:right;">{{comment.time}}</p>
+                </h6>
+                <p class="card-text">{{comment.text}}</p>
+              </div>
+            </div>
+            <br/>
+            {% endfor %}
 
         </div><!-- /.blog-main -->
+<!--
 
         <aside class="col-md-4 blog-sidebar">
 
@@ -71,7 +129,8 @@
           </div>
 
 
-        </aside><!-- /.blog-sidebar -->
+        </aside>&lt;!&ndash; /.blog-sidebar &ndash;&gt;
+-->
 
       </div><!-- /.row -->
 

@@ -58,10 +58,10 @@ class Comment(models.Model):
     )
     article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='所属文章')
     user = models.CharField('评论者昵称', max_length=100, default='匿名用户')
-    email = models.CharField('评论者邮箱', max_length=100, default='anonymous')
+    email = models.CharField('评论者邮箱', max_length=100, default='未提供')
     text = models.TextField('内容')
-    time = models.DateTimeField('发布时间', auto_now=True)
-    status = models.IntegerField('状态', choices=STATUS_CHOICES)
+    time = models.DateTimeField('发布时间', auto_now_add=True)
+    status = models.IntegerField('状态', choices=STATUS_CHOICES, default=0)
 
     def __str__(self):
         return self.user + ' - ' + self.article.title

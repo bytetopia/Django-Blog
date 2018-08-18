@@ -12,12 +12,12 @@
 
 ## 相关技术
 
-当前版本： v 0.1
+当前版本： v 0.3
 
 基于 Django 搭建而成
 - 前端页面：样式基于 Bootstrap 4
 - 管理后台：直接用了 Django 自带的 Admin
-- Markdown：使用 Editor.md （待添加）
+- Markdown：使用 Editor.md 
 - 数据库：基于 Mysql
 - 搜索：基于 haystack 和 whoosh （待添加）
 - 标签文字云：JQCloud
@@ -67,4 +67,6 @@ python3 manage.py runserver 8888
 可根据你的需要修改项目中的内容。（这部分说明，后续再详细补充）
 
 ## 更新日志
+v0.3 2018/08/18 增加评论功能
+v0.2 2018/08/17 支持markdown编辑器
 v0.1 2018/08/12 搭建原始框架
