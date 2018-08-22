@@ -41,6 +41,7 @@ class Article(models.Model):
     time = models.DateTimeField('发布时间')
     pin = models.IntegerField('是否置顶', choices=PIN_CHOICES, default=0)
     status = models.IntegerField('状态', choices=STATUS_CHOICES, default=1)
+    pwd = models.CharField('访问密码', max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.title

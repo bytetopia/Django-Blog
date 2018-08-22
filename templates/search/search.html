@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+      {% include 'blog/includes/head.html' %}
+      <title>搜索结果 - 辛东兴的个人网站</title>
+  </head>
+ <div>
+
+    {% include 'blog/includes/nav.html' %}
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8 blog-main">
+          <h5 class="pb-3 mb-4 border-bottom">
+            “{{query}}”的搜索结果
+          </h5>
+
+
+        {% for result in page.object_list %}
+          <div class="blog-post">
+            <a href="{% url 'blog:article_detail' result.object.id %}"><h5>{{result.object.title}}</h5></a>
+            <p class="blog-post-meta">{{result.object.time}}</p>
+            <p>{{result.object.description}}</p>
+            <hr>
+          </div><!-- /.blog-post -->
+        {% empty %}
+            没有搜到内容 ┑(￣Д ￣)┍<br/>
+        {% endfor %}
+
+
+        </div><!-- /.blog-main -->
+
+<!--
+        <aside class="col-md-4 blog-sidebar">
+
+          <div class="p-3 mb-3 bg-light rounded">
+            <h5 class="">Timeline</h5>
+            <p class="mb-0">2018年8月</p>
+            <p class="mb-0">2018年7月</p>
+            <p class="mb-0">2018年6月</p>
+            <p class="mb-0">2018年5月</p>
+          </div>
+
+
+        </aside>&lt;!&ndash; /.blog-sidebar &ndash;&gt;
+-->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<br/><br/><br/>
+ {% include 'blog/includes/footer.html' %}
+
+
+</body>
+</html>

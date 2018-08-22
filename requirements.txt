@@ -3,7 +3,10 @@ cffi==1.11.5
 cryptography==2.3
 Django==1.11
 idna==2.7
+jieba==0.39
 pycparser==2.18
 PyMySQL==0.9.2
 pytz==2018.5
 six==1.11.0
+uuid==1.30
+Whoosh==2.7.4

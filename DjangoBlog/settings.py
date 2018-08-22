@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -129,7 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'uploads'),
 ]
-
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
 
@@ -141,6 +142,18 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 # 设置默认日期时间格式
 DATETIME_FORMAT = 'Y-m-d H:i:s'
 DATE_FORMAT = 'Y-m-d'
+
+
+# 配置haystack搜索
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+
+# 添加此项，当数据库改变时，会自动更新索引，非常方便
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
 # 用户自定义部分

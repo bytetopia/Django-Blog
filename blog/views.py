@@ -53,15 +53,43 @@ def article_list(req):
 
 
 def article_detail(req, article_id):
-    article = models.Article.objects.filter(id=int(article_id))[0]
-    pinned_comments = models.Comment.objects.filter(article=article, status=1).order_by('-time')
-    normal_comments = models.Comment.objects.filter(article=article, status=0).order_by('-time')
-    context = {
-        'article': article,
-        'pinned_comments': pinned_comments,
-        'normal_comments': normal_comments
-    }
-    return render(req, 'blog/article_detail.html', context=context)
+    if req.method == 'GET':
+        article = models.Article.objects.filter(id=int(article_id))[0]
+        if not article.pwd:
+            # 无需密码，直接访问
+            pinned_comments = models.Comment.objects.filter(article=article, status=1).order_by('-time')
+            normal_comments = models.Comment.objects.filter(article=article, status=0).order_by('-time')
+            context = {
+                'article': article,
+                'pinned_comments': pinned_comments,
+                'normal_comments': normal_comments
+            }
+            return render(req, 'blog/article_detail.html', context=context)
+        else:
+            # 需要密码访问，跳转密码输入页
+            context = {
+                'article': article,
+                'msg': '文章内容已加密，请输入访问密码。',
+            }
+            return render(req, 'blog/article_detail_encrypted.html', context=context)
+    else:
+        article = models.Article.objects.filter(id=int(article_id))[0]
+        pwd = req.POST.get('pwd', None)
+        if pwd and pwd == article.pwd:
+            pinned_comments = models.Comment.objects.filter(article=article, status=1).order_by('-time')
+            normal_comments = models.Comment.objects.filter(article=article, status=0).order_by('-time')
+            context = {
+                'article': article,
+                'pinned_comments': pinned_comments,
+                'normal_comments': normal_comments
+            }
+            return render(req, 'blog/article_detail.html', context=context)
+        else:
+            context = {
+                'article': article,
+                'msg': '密码错误，请重试。',
+            }
+            return render(req, 'blog/article_detail_encrypted.html', context=context)
 
 
 def category_list(req):
