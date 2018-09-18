@@ -38,6 +38,11 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ['text']
 
 
+@admin.register(models.Attachment)
+class AttachmentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'content']
+    list_per_page = 30
+
 
 
 

@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'haystack',
-    'markdown_deux',
 ]
 
 MIDDLEWARE = [

@@ -72,9 +72,12 @@ class Comment(models.Model):
         verbose_name_plural = '评论'
 
 
+class Attachment(models.Model):
+    content = models.FileField(upload_to='attachments/%Y/%m/')
 
+    def __str__(self):
+        return '文件-%d' % self.id
 
-
-
-
-
+    class Meta:
+        verbose_name = '附件'
+        verbose_name_plural = '附件'
