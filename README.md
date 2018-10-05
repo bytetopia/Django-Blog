@@ -8,18 +8,18 @@ Personal blog powered by Python and Django.
 
 ## 简介
 
-关于博客这件事，基于 jekyll 和 hexo 的博客都试过，csdn 和博客园和 segment fault 都写过，总不能觉得满意…… 最后还是决定自己造一个了_(:з)∠)_
+基于 Django 1.11 搭建的个人博客。
 
 预览网址： http://codingcat.cn
 
 ## 相关技术
 
-当前版本： v 0.5
+当前版本： v 0.6
 
 基于 Django 搭建而成
 - 前端页面：样式基于 Bootstrap 4
 - 管理后台：直接用了 Django 自带的 Admin
-- Markdown：编辑器使用 Editor.md ，前台渲染使用 showdown.js 和 highlight.js
+- Markdown：编辑器和前台渲染使用 Editor.md
 - 数据库：基于 Mysql
 - 搜索：基于 haystack 和 whoosh （注：由于需要配置中文分词，项目直接内置了一份haystack的源码，而无需再安装haystack的包）
 - 标签文字云：JQCloud
@@ -31,7 +31,7 @@ Personal blog powered by Python and Django.
 #### 安装依赖
 项目基于 Python 3，需要在项目根目录下运行
 ```commandline
-pip3 install -r requirements.txt
+pip3 install -r req.txt
 ```
 
 #### 修改数据库
@@ -74,8 +74,9 @@ python3 manage.py rebuild_index
 可根据你的需要修改项目中的内容。（这部分说明，后续再详细补充）
 
 ## 更新日志
-v0.5 2018/09/05 优化markdown渲染效果
-v0.4 2018/08/22 增加搜索功能，增加文章加锁功能
-v0.3 2018/08/18 增加评论功能
-v0.2 2018/08/17 支持markdown编辑器
-v0.1 2018/08/12 搭建原始框架
+- v0.6 2018/10/05 前台渲染也换用了Editor.md，保持与编辑时一致的渲染效果，并获得了toc功能。同时将django版本升级到1.11.15以规避Github提示的某个安全漏洞。
+- v0.5 2018/09/05 优化markdown渲染效果
+- v0.4 2018/08/22 增加搜索功能，增加文章加锁功能
+- v0.3 2018/08/18 增加评论功能
+- v0.2 2018/08/17 支持markdown编辑器
+- v0.1 2018/08/12 搭建原始框架
