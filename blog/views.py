@@ -15,7 +15,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def index_page(req):
     pin_articles = models.Article.objects.filter(status=1, pin=1).order_by('-time')
-    recent_articles = models.Article.objects.filter(status=1).order_by('-time')[:5]
+    recent_articles = models.Article.objects.filter(status=1).order_by('-time')[:10]
     categories = models.Category.objects.all()
     tags = models.Tag.objects.all()
     context = {
