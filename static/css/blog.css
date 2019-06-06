@@ -118,7 +118,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   color: #999;
 }
-
+.blog-micro-img img{
+    max-width: 80%;
+    max-height: 300px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 /*
  * Footer
  */

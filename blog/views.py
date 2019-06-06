@@ -16,7 +16,14 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def index_page(req):
     pin_articles = models.Article.objects.filter(status=1, pin=1).order_by('-time')
     recent_articles = models.Article.objects.filter(status=1).order_by('-time')[:10]
-    categories = models.Category.objects.all()
+    raw_categories = models.Category.objects.all()
+    categories = []
+    for ct in raw_categories:
+        categories.append({
+            'category': ct,
+            'article_count': ct.article_set.count(),
+        })
+    categories = sorted(categories, key=lambda x: x['article_count'], reverse=True)
     tags = models.Tag.objects.all()
     context = {
         'pin_articles': pin_articles,
@@ -93,7 +100,14 @@ def article_detail(req, article_id):
 
 
 def category_list(req):
-    categories = models.Category.objects.all()
+    raw_categories = models.Category.objects.all()
+    categories = []
+    for ct in raw_categories:
+        categories.append({
+            'category': ct,
+            'article_count': ct.article_set.count(),
+        })
+    categories = sorted(categories, key=lambda x: x['article_count'], reverse=True)
     context = {
         'categories': categories,
     }

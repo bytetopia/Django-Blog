@@ -21,11 +21,11 @@
           </h5>
 
         <ul class="list-group list-group-flush">
-          {% for category in categories %}
+          {% for it in categories %}
             <li class="list-group-item">
-                <a href="{% url 'blog:article_list' %}?category={{category.id}}">
-                    {{category.name}}
-                    <span class="badge badge-primary badge-pill float-right">{{category.article_set.count}}</span>
+                <a href="{% url 'blog:article_list' %}?category={{it.category.id}}">
+                    {{it.category.name}}
+                    <span class="badge badge-primary badge-pill float-right">{{it.article_count}}</span>
                 </a>
             </li>
           {% empty %}

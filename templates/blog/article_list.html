@@ -22,9 +22,18 @@
 
         {% for article in articles.object_list %}
           <div class="blog-post">
-            <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
-            <p class="blog-post-meta">{{article.time}}</p>
-            <p>{{article.description}}</p>
+             {% if article.is_micro == 0 %}
+                <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
+                <p class="blog-post-meta">{{article.time}}</p>
+                <p>{{article.description}}</p>
+              {% else %}
+                <h5>{{article.title}}</h5>
+                <p class="blog-post-meta">微博 | {{article.time}}</p>
+                  {% if article.micro_picture %}
+                      <p class="blog-micro-img"><img src="/uploads/{{ article.micro_picture.name }}"></p>
+                  {% endif %}
+                <p>{{article.get_micro_text_html|safe}}<br/><br/></p>
+          {% endif %}
             <hr>
           </div><!-- /.blog-post -->
         {% empty %}

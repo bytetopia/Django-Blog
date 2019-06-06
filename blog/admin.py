@@ -35,7 +35,7 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'time', 'status']
     list_per_page = 30
     inlines = [CommentInline]
-    exclude = ['text']
+    # exclude = ['text']
 
 
 @admin.register(models.Attachment)

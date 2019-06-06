@@ -7,6 +7,22 @@
   <head>
       {% include 'blog/includes/head.html' %}
       <title>关于我 - 辛东兴的个人网站</title>
+      <style>
+          .blog-post{
+              background-image:url('{% static 'images/laoshuhuahua.jpg' %}');
+              background-size: 100% 100%;
+              padding: 5%;
+              min-height: 800px;
+              color: #000029;
+          }
+          .blog-post p{
+              font-size: 1.1rem;
+              font-family: 苹方, 思源黑体, 微软雅黑, "Playfair Display", Georgia, "Times New Roman", serif;
+          }
+          body, div, .bg-light, .blog-footer{
+              background-color: #ebece6 !important;
+          }
+      </style>
   </head>
  <div>
 
@@ -20,17 +36,13 @@
 
           <div class="blog-post">
             <h3>关于</h3>
-            <p class="blog-post-meta">About me.</p>
+              <hr/>
 
-            <p class="bg-light" style="padding:1rem;">
-                联系我： <a href="mailto:hello@codingcat.cn">hello@codingcat.cn</a>
-            </p>
-
-            <p>本博客使用 Django 搭建，并集成  markdown 编辑器、标签云、分类管理、文章加锁、全文检索等功能，可满足博客的基本需求，更多功能也会随着使用不断增加。</p>
-            <p>代码和详细说明见： <a href="https://github.com/dox1994/Django-Blog">https://github.com/dox1994/Django-Blog</a></p>
+            <p>当下仍处于对人生意义的求索。漫漫时光总会有所见所感，学习也好，工作也好，生活也好，且在此处记下，与有缘之人分享。</p>
+              <br/><br/><hr/>
 
           </div><!-- /.blog-post -->
-
+           <p>本博客基于Django，开源见 <a href="https://github.com/dox1994/Django-Blog">https://github.com/dox1994/Django-Blog</a>，联系我 <a href="mailto:hello@codingcat.cn">hello@codingcat.cn</a></p>
 
         </div><!-- /.blog-main -->
 
