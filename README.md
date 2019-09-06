@@ -14,8 +14,6 @@ Personal blog powered by Python and Django.
 
 ## 相关技术
 
-当前版本： v 0.8
-
 基于 Django 搭建而成
 - 前端页面：样式基于 Bootstrap 4
 - 管理后台：直接用了 Django 自带的 Admin
@@ -74,6 +72,7 @@ python3 manage.py rebuild_index
 可根据你的需要修改项目中的内容。（这部分说明，后续再详细补充）
 
 ## 更新日志 
+- v0.9 2019/09/06 amazing counters貌似挂掉了 😂，所以增加站内自己的访问计数功能
 - v0.8 2019/06/30 增加赞赏按钮；显示amazing counters访问计数
 - v0.7 2019/06/06 增加了微型博文；文章分类按数量倒序；修改了关于我的页面
 - v0.6 2018/10/05 前台渲染也换用了Editor.md，保持与编辑时一致的渲染效果，并获得了toc功能。同时将django版本升级到1.11.15以规避Github提示的某个安全漏洞。

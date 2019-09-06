@@ -95,3 +95,16 @@ class Attachment(models.Model):
     class Meta:
         verbose_name = '附件'
         verbose_name_plural = '附件'
+
+
+class Counter(models.Model):
+    key = models.CharField('Key', max_length=100, primary_key=True)
+    value = models.IntegerField('计数', default=0)
+
+    def __str__(self):
+        return '%s - %d' % (self.key, self.value)
+
+    class Meta:
+        verbose_name = '计数器'
+        verbose_name_plural = '计数器'
+

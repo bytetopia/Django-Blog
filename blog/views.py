@@ -2,6 +2,8 @@ import json
 import os
 
 import uuid
+
+import requests
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -10,6 +12,20 @@ from django.views.decorators.csrf import csrf_exempt
 
 from . import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+def _get_counter(key, increase=True):
+    counters = models.Counter.objects.filter(key=key)
+    if len(counters) == 1:
+        counter = counters[0]
+    else:
+        counter = models.Counter()
+        counter.key = key
+        counter.save()
+    if increase:
+        counter.value += 1
+        counter.save()
+    return counter.value
 
 
 # Create your views here.
@@ -30,6 +46,7 @@ def index_page(req):
         'recent_articles': recent_articles,
         'categories': categories,
         'tags': tags,
+        'site_counter': _get_counter('site_total'),  # 全站计数
     }
     return render(req, 'blog/index.html', context=context)
 
@@ -55,6 +72,7 @@ def article_list(req):
     context = {
         'articles': ok_articles,
         'filter_string': filter_string,
+        'site_counter': _get_counter('site_total'),  # 全站计数
     }
     return render(req, 'blog/article_list.html', context=context)
 
@@ -69,7 +87,9 @@ def article_detail(req, article_id):
             context = {
                 'article': article,
                 'pinned_comments': pinned_comments,
-                'normal_comments': normal_comments
+                'normal_comments': normal_comments,
+                'site_counter': _get_counter('site_total'),  # 全站计数
+                'article_view_counter': _get_counter('article_view_%d' % article.id),  # 文章访问计数
             }
             return render(req, 'blog/article_detail.html', context=context)
         else:
@@ -77,6 +97,8 @@ def article_detail(req, article_id):
             context = {
                 'article': article,
                 'msg': '文章内容已加密，请输入访问密码。',
+                'site_counter': _get_counter('site_total', increase=False),  # 全站计数
+                'article_view_counter': _get_counter('article_view_%d' % article.id, increase=False),  # 文章访问计数
             }
             return render(req, 'blog/article_detail_encrypted.html', context=context)
     else:
@@ -88,7 +110,9 @@ def article_detail(req, article_id):
             context = {
                 'article': article,
                 'pinned_comments': pinned_comments,
-                'normal_comments': normal_comments
+                'normal_comments': normal_comments,
+                'site_counter': _get_counter('site_total'),  # 全站计数
+                'article_view_counter': _get_counter('article_view_%d' % article.id),  # 文章访问计数
             }
             return render(req, 'blog/article_detail.html', context=context)
         else:
@@ -110,6 +134,7 @@ def category_list(req):
     categories = sorted(categories, key=lambda x: x['article_count'], reverse=True)
     context = {
         'categories': categories,
+        'site_counter': _get_counter('site_total'),  # 全站计数
     }
     return render(req, 'blog/category_list.html', context=context)
 
@@ -118,12 +143,16 @@ def tag_list(req):
     tags = models.Tag.objects.all()
     context = {
         'tags': tags,
+        'site_counter': _get_counter('site_total'),  # 全站计数
     }
     return render(req, 'blog/tag_list.html', context=context)
 
 
 def about_page(req):
-    return render(req, 'blog/about.html')
+    context = {
+        'site_counter': _get_counter('site_total'),  # 全站计数
+    }
+    return render(req, 'blog/about.html', context=context)
 
 
 def submit_comment(req):
@@ -204,3 +233,17 @@ def admin_image_upload(req):
             'url': '/',
         }
     return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+# 个人小需求，给bark发消息，可忽略此项
+def bark(req):
+    content = req.GET.get('content', None)
+    ret = {
+        'status': 'ok'
+    }
+    if not content:
+        return HttpResponse(json.dumps(ret), content_type='application/json')
+    url = 'https://api.day.app/iRQbQ8PPMezUi4dcY7enh7/%s' % content
+    r = requests.get(url)
+    return HttpResponse(json.dumps(ret), content_type='application/json')
+

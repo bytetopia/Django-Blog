@@ -47,7 +47,11 @@
 
           <div class="blog-post fmt">
             <h2>{{article.title}}</h2>
-            <p class="blog-post-meta">{{article.time}}</p>
+            <p class="blog-post-meta">
+                {{article.time}}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                阅读 {{ article_view_counter }}
+            </p>
             <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
             </p>

@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^editor/article', views.admin_edit_article, name='admin_edit_article'),  # 管理后台编写文章
     url(r'^editor/save', views.admin_edit_save, name='admin_edit_save'),  # 异步保存文章
     url(r'^editor/image_upload', views.admin_image_upload, name='admin_image_upload'),  # 上传图片
+
+    url(r'^bark', views.bark, name='bark'),  # 个人小需求，给bark发消息，可忽略此项
 ]

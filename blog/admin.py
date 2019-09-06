@@ -44,5 +44,8 @@ class AttachmentAdmin(admin.ModelAdmin):
     list_per_page = 30
 
 
-
+@admin.register(models.Counter)
+class CounterAdmin(admin.ModelAdmin):
+    list_display = ['key', 'value']
+    list_per_page = 30
 

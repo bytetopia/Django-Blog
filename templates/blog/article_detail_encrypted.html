@@ -44,7 +44,11 @@
 
           <div class="blog-post">
             <h3>{{article.title}}</h3>
-            <p class="blog-post-meta">{{article.time}}</p>
+            <p class="blog-post-meta">
+                {{article.time}}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                阅读 {{ article_view_counter }}
+            </p>
             <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
             </p>
