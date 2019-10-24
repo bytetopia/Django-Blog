@@ -243,7 +243,7 @@ def bark(req):
     }
     if not content:
         return HttpResponse(json.dumps(ret), content_type='application/json')
-    url = 'https://api.day.app/iRQbQ8PPMezUi4dcY7enh7/%s' % content
+    url = 'https://api.day.app/LyG8H2uEhfs9EHYXpZzsT8/%s' % content
     r = requests.get(url)
     return HttpResponse(json.dumps(ret), content_type='application/json')
 

@@ -56,6 +56,9 @@
                 {{article.description}}
             </p>
             <br/>
+            <!-- <div>
+             AD
+            </div> -->
             <div id="renderMd" style="padding:0 !important;">
                 <textarea style="display:none;" id="originalMd">{{article.text|safe}}</textarea>
             </div>
@@ -84,6 +87,11 @@
             </div>
             <br/>
             <hr/>
+            <div>
+              {% include 'blog/includes/ad_bar.html' %}
+            </div>
+            
+            <br/>
             <br/>
             <h3>
                 留言
@@ -154,7 +162,7 @@
           <div class="p-3 mb-3 bg-light rounded pinned" style="max-height:500px;overflow: auto;">
             <h5 class="">目录</h5>
             <div class="mb-0" id="tocDiv"></div>
-
+            <br/>
           </div>
 
         </aside>

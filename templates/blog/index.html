@@ -74,6 +74,10 @@
             <a class="btn btn-outline-secondary" href="{% url 'blog:article_list' %}">查看更多</a>
           </nav>
 
+          <div>
+            {% include 'blog/includes/ad_bar.html' %} 
+          </div>
+
         </div><!-- /.blog-main -->
 
         <aside class="col-md-4 blog-sidebar">
@@ -101,9 +105,10 @@
 
           </div>
 
-
+          {% include 'blog/includes/ad_square.html' %}
           {% include 'blog/includes/aside_wechat.html' %}
           {% include 'blog/includes/aside_links.html' %}
+          {% include 'blog/includes/ad_square.html' %}
 
 
         </aside><!-- /.blog-sidebar -->
