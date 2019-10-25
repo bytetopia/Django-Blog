@@ -5,7 +5,7 @@
 <html>
   <head>
       {% include 'blog/includes/head.html' %}
-      <title>{{article.title}} - 文章 - 辛东兴的个人网站</title>
+      <title>{{article.title}} - Articles - Coding Cat</title>
       <style>
           #renderMd h1{
               font-size: 1.6rem;
@@ -45,9 +45,10 @@
           <div class="blog-post">
             <h3>{{article.title}}</h3>
             <p class="blog-post-meta">
-                {{article.time}}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                阅读 {{ article_view_counter }}
+                {{article.time|date:'M d'}}&nbsp;&nbsp;{{article.time|date:'Y'}}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                | &nbsp;&nbsp;&nbsp;&nbsp;
+                {{ article_view_counter }} Views
             </p>
             <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
@@ -58,9 +59,9 @@
                     {%csrf_token%}
                   <div class="form-group">
                     <label for="pwd">{{msg}}</label>
-                    <input type="text" class="form-control" required id="pwd" name="pwd" placeholder="访问密码">
+                    <input type="text" class="form-control" required id="pwd" name="pwd" placeholder="Password">
                   </div>
-                  <button type="submit" class="btn btn-primary">提交</button>
+                  <button type="submit" class="btn btn-primary"> Submit </button>
                 </form>
             </div>
           </div><!-- /.blog-post -->

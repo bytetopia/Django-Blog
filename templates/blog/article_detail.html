@@ -5,7 +5,7 @@
 <html>
   <head>
       {% include 'blog/includes/head.html' %}
-      <title>{{article.title}} - 文章 - 辛东兴的个人网站</title>
+      <title>{{article.title}} - Articles - Coding Cat</title>
       <link href="{% static 'editormd/css/editormd.preview.css' %}" rel="stylesheet">
       <link rel="stylesheet" href="{% static 'highlightjs/styles/atom-one-light.css' %}">
 
@@ -48,9 +48,15 @@
           <div class="blog-post fmt">
             <h2>{{article.title}}</h2>
             <p class="blog-post-meta">
-                {{article.time}}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                阅读 {{ article_view_counter }}
+                {{article.time|date:'M d'}}&nbsp;&nbsp;{{article.time|date:'Y'}}
+                &nbsp;&nbsp;&nbsp;
+                <svg t="1572001532874" class="icon" viewBox="0 0 1434 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3485" width="16" height="16"><path d="M716.762463 0C204.762463 0 0 512 0 512s204.762463 512 716.762463 512c512 0 716.762463-512 716.762463-512S1228.57478 0 716.762463 0L716.762463 0zM716.762463 819.049853c-169.665689 0-307.237537-137.571848-307.237537-307.237537 0-169.665689 137.571848-307.237537 307.237537-307.237537 169.665689 0 307.237537 137.571848 307.237537 307.237537C1023.812317 681.665689 886.240469 819.049853 716.762463 819.049853L716.762463 819.049853zM716.762463 819.049853M870.28739 512c0 84.832845-68.879765 153.524927-153.524927 153.524927S563.049853 596.645161 563.049853 512c0-84.832845 68.879765-153.524927 153.524927-153.524927C801.595308 358.28739 870.28739 427.167155 870.28739 512L870.28739 512zM870.28739 512" p-id="3486" fill="#707070"></path></svg>
+                &nbsp;{{ article_view_counter }}
+                &nbsp;&nbsp;&nbsp;
+                <svg t="1572001669239" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4750" width="16" height="16"><path d="M160.755264 64.708767c-52.871161 0-96.052636 43.177382-96.052636 96.010681L64.702628 384.970862c0 52.749388 30.578436 126.584 68.009953 163.941839l382.333802 382.327662c37.314861 37.399795 98.380658 37.399795 135.775336 0l280.4606-280.413528c37.352723-37.394678 37.352723-98.506525 0-135.859247L548.912701 132.635833c-37.357839-37.394678-111.109564-67.927065-163.941839-67.927065L160.755264 64.708767 160.755264 64.708767zM288.335964 384.184963c-52.913117 0-95.842859-42.930765-95.842859-95.842859 0-52.91721 42.929742-95.842859 95.842859-95.842859 52.916187 0 95.842859 42.929742 95.842859 95.842859C384.178823 341.253174 341.252151 384.184963 288.335964 384.184963L288.335964 384.184963zM288.335964 384.184963" p-id="4751" fill="#707070"></path></svg>
+                {% for tag in article.tags.all %}
+                    <a class="article-detail-tag-link" href="/articles?tag={{ tag.id }}"># {{ tag.name }}</a>&nbsp;&nbsp;
+                {% endfor %}
             </p>
             <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
@@ -70,13 +76,13 @@
 
              <h3 style="text-align: center;">
                 <a class="btn btn-sm btn-danger" data-toggle="collapse" href="#tipCollapse">
-                   赞赏作者
+                   赞 赏
                 </a>
             </h3>
             <br/>
 
             <div class="collapse" id="tipCollapse">
-              <div class="card card-body" style="text-align:center;color:#8f0040;">
+              <div class="card card-body" style="text-align:center;color:#c0629b;">
                   <p>喜欢本博客，可以支持下博主～❤</p>
                   <div>
                       <img src="{% static 'images/tip.png' %}" style="max-height:200px;"/>
@@ -94,9 +100,9 @@
             <br/>
             <br/>
             <h3>
-                留言
+                Comments
                 <a class="btn btn-sm btn-outline-primary" style="float:right;" data-toggle="collapse" href="#addCommentCollapse">
-                   写留言
+                    Add comment
                 </a>
             </h3>
             <br/>
@@ -108,21 +114,21 @@
                       <input type="hidden" name="aid" value="{{article.id}}"/>
                       <div class="row">
                           <div class="form-group col-sm-12 col-md-6">
-                            <label for="nickName" class="">昵称</label>
-                            <input type="text" class="form-control" id="nickName" name="nickName" placeholder="请填写">
+                            <label for="nickName" class="">Nickname</label>
+                            <input type="text" class="form-control" id="nickName" name="nickName" placeholder="your nickname">
                           </div>
                           <div class="form-group col-sm-12 col-md-6">
                             <label for="email" class="">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="请填写">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="your email">
                           </div>
                       </div>
                       <div class="row">
                            <div class="form-group col-sm-12">
-                               <label for="content">留言内容 <span style="color:red;">*</span></label>
+                               <label for="content">Content <span style="color:red;">*</span></label>
                                <textarea class="form-control" id="content" name="content" required rows="3"></textarea>
                            </div>
                       </div>
-                      <button type="submit" class="btn btn-sm btn-primary">提交</button>
+                      <button type="submit" class="btn btn-sm btn-primary"> Submit </button>
                   </form>
               </div>
                 <br/>
@@ -133,8 +139,8 @@
             <div class="card">
               <div class="card-body">
                 <h6 class="card-subtitle text-muted" style="margin-bottom:5px;" title="{{comment.email}}">
-                    {{comment.user}} <span class="badge badge-primary">置顶</span>
-                    <span style="font-size:0.8rem;color:gray;float:right;">{{comment.time}}  </span>
+                    {{comment.user}} <span class="badge badge-primary">Pinned</span>
+                    <span style="font-size:0.8rem;color:gray;float:right;">{{comment.time|date:'M d Y H:m'}}  </span>
                 </h6>
                 <p class="card-text">{{comment.text}}</p>
               </div>
@@ -146,7 +152,7 @@
               <div class="card-body">
                 <h6 class="card-subtitle text-muted" style="margin-bottom:5px;" title="{{comment.email}}">
                     {{comment.user}}
-                    <p style="font-size:0.8rem;color:gray;float:right;">{{comment.time}}</p>
+                    <p style="font-size:0.8rem;color:gray;float:right;">{{comment.time|date:'M d Y H:m'}}</p>
                 </h6>
                 <p class="card-text">{{comment.text}}</p>
               </div>
@@ -160,7 +166,7 @@
         <aside class="d-none d-md-block col-md-4 blog-sidebar">
 
           <div class="p-3 mb-3 bg-light rounded pinned" style="max-height:500px;overflow: auto;">
-            <h5 class="">目录</h5>
+            <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contents</h5><hr/>
             <div class="mb-0" id="tocDiv"></div>
             <br/>
           </div>
@@ -179,7 +185,7 @@
 
     <script src="{% static 'editormd/lib/raphael.min.js' %}"></script>
     <script src="{% static 'editormd/lib/underscore.min.js' %}"></script>
-    <script src="{% static 'editormd/lib/sequence-diagram.min.' %}"></script>
+    <script src="{% static 'editormd/lib/sequence-diagram.min.js' %}"></script>
     <script src="{% static 'editormd/lib/flowchart.min.js' %}"></script>
     <script src="{% static 'editormd/lib/jquery.flowchart.min.js' %}"></script>
     <script src="{% static 'editormd/editormd.js' %}"></script>

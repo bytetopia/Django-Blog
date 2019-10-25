@@ -1,6 +1,23 @@
 /* stylelint-disable selector-list-comma-newline-after */
+html {
+    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif !important;
+}
 body {
     font-size:0.9rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.75) !important;
+    scroll-behavior: smooth;
+    background: #fefefe !important;
+}
+a {
+    color: #0092f5;
+}
+a:hover {
+    color: #0069d0;
+    text-decoration: none;
+}
+.badge-primary {
+    background-color: #0092f5;
 }
 .blog-header {
   line-height: 1;
@@ -8,7 +25,6 @@ body {
 }
 
 .blog-header-logo {
-  font-family: "苹方",  "思源黑体", "微软雅黑", "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: 1.5rem;
 }
 
@@ -17,12 +33,13 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "苹方",  "思源黑体", "微软雅黑", "Playfair Display", Georgia, "Times New Roman", serif;
+    font-weight: normal !important;
+  /*font-family: "苹方",  "思源黑体", "微软雅黑", "Playfair Display", Georgia, "Times New Roman", serif;*/
 }
 
 code {
     font-size: 0.8rem !important;
-    font-family: Menlo, Monaco, Consolas, "苹方",  "思源黑体", "微软雅黑", serif !important;
+    font-family: Menlo, Monaco, Consolas, "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif !important;
 }
 
 .display-4 {
@@ -83,6 +100,13 @@ code {
 .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
 
 /*
+ * Index Page
+ */
+.index-card {
+  margin-bottom: 50px;
+}
+
+/*
  * Blog name and description
  */
 .blog-title {
@@ -130,6 +154,29 @@ code {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+.markdown-body {
+    color: rgba(0, 0, 0, 0.75) !important;
+    line-height: 2;
+    font-size: 15px !important;
+    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif !important;
+}
+.article-detail-tag-link {
+    color: #707070;
+}
+.article-detail-tag-link:hover {
+    color: #0092f5;
+}
+
+.markdown-toc ul{
+    list-style: square;
+}
+.markdown-toc a{
+    color: #595959;
+}
+.markdown-toc a:hover{
+    color: #0092f5;
+}
+
 /*
  * Footer
  */

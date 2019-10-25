@@ -6,20 +6,38 @@
 <html>
   <head>
       {% include 'blog/includes/head.html' %}
-      <title>首页 - 辛东兴的个人网站</title>
+      <title>Home - Coding Cat</title>
       <link href="{% static 'css/jqcloud.min.css' %}" rel="stylesheet">
+
   </head>
+
  <div>
 
     {% include 'blog/includes/nav.html' %}
 
     <div class="container">
-      <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background:url('/static/images/stars.png') no-repeat;background-size:cover;">
-        <div class="col-md-6 px-0">
-          <h1 class="display-4 font-italic">Be initiative.</h1>
-          <p class="lead my-3">每天<del>喝杯</del>进步一点点</p>
-        <!--   <p class="lead mb-0"><a href="https://getbootstrap.com/docs/4.1/examples/blog/#" class="text-white font-weight-bold">Continue reading...</a></p> -->
-        </div>
+        <hr/><br/>
+        <h5 class="pb-3">
+           Pinned Items
+          </h5>
+      <div class="index-card card-group">
+          <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Zen</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Chrome New Tab Extension </h6>
+                <p class="card-text">Chrome 新标签页插件，自动同步 Bing 每日壁纸。</p>
+                <a href="/zen/" class="card-link">Download</a>
+                <a href="https://github.com/dox1994/Chrome-New-Tab-with-Bing-Wallpaper" class="card-link">Source Code</a>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">My Github</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Open Source </h6>
+                <p class="card-text">博客文章、开源仓库。</p>
+                <a href="https://github.com/dox1994" class="card-link">View Github</a>
+              </div>
+          </div>
       </div>
     </div>
 
@@ -29,18 +47,18 @@
       <div class="row">
         <div class="col-md-8 blog-main">
           <h5 class="pb-3 mb-4 border-bottom">
-            近期博文
+              Recent Posts
           </h5>
 
         {% for article in pin_articles %}
           <div class="blog-post">
           {% if article.is_micro == 0 %}
             <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
-            <p class="blog-post-meta"><span class="badge badge-primary">置顶</span> {{article.time}}</p>
+            <p class="blog-post-meta"><span class="badge badge-primary">Pinned</span> {{article.time|date:'M d'}}&nbsp;&nbsp;{{article.time|date:'Y'}}</p>
             <p>{{article.description}}</p>
           {% else %}
             <h5>{{article.title}}</h5>
-            <p class="blog-post-meta"><span class="badge badge-secondary">微博</span> {{article.time}}</p>
+            <p class="blog-post-meta"><span class="badge badge-secondary">Pinned</span> {{article.time|date:'M d'}}&nbsp;&nbsp;{{article.time|date:'Y'}}</p>
               {% if article.micro_picture %}
                   <p><img src="/uploads/micro_images/{{ article.micro_picture.name }}"></p>
               {% endif %}
@@ -54,11 +72,11 @@
           <div class="blog-post">
            {% if article.is_micro == 0 %}
             <a href="{% url 'blog:article_detail' article.id %}"><h5>{{article.title}}</h5></a>
-            <p class="blog-post-meta">{{article.time}}</p>
+            <p class="blog-post-meta">{{article.time|date:'M d'}}&nbsp;&nbsp;{{article.time|date:'Y'}}</p>
             <p>{{article.description}}</p>
           {% else %}
             <h5>{{article.title}}</h5>
-            <p class="blog-post-meta"><span class="badge badge-secondary">微博</span> {{article.time}}</p>
+            <p class="blog-post-meta"><span class="badge badge-secondary">MicroBlog</span> {{article.time}}</p>
               {% if article.micro_picture %}
                   <p class="blog-micro-img"><img src="/uploads/{{ article.micro_picture.name }}"></p>
               {% endif %}
@@ -71,7 +89,7 @@
 
 
          <nav class="blog-pagination">
-            <a class="btn btn-outline-secondary" href="{% url 'blog:article_list' %}">查看更多</a>
+            <a class="btn btn-outline-secondary" href="{% url 'blog:article_list' %}">View More</a>
           </nav>
 
           <div>
@@ -83,13 +101,13 @@
         <aside class="col-md-4 blog-sidebar">
 
           <div class="p-3 mb-3 bg-light rounded">
-            <h5 class="">标签云</h5>
+            <h5 class="">Tags</h5>
             <div id="cloud" style="min-height:150px;width:100%;">
             </div>
           </div>
 
           <div class="p-3 mb-3 bg-light rounded">
-            <h5 class="">文章分类</h5>
+            <h5 class="">Categories</h5>
             <ul class="list-group list-group-flush">
               {% for ct in categories %}
                 <li class="list-group-item" style="background-color:#F8F9FA;">
@@ -99,7 +117,7 @@
                     </a>
                 </li>
               {% empty %}
-              哎呀，还没有分类。
+              Nothing here.
               {% endfor %}
             </ul>
 

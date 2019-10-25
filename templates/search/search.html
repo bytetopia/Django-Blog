@@ -6,7 +6,7 @@
 <html>
   <head>
       {% include 'blog/includes/head.html' %}
-      <title>搜索结果 - 辛东兴的个人网站</title>
+      <title>Search “{{query}}” - Coding Cat</title>
   </head>
  <div>
 
@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-md-8 blog-main">
           <h5 class="pb-3 mb-4 border-bottom">
-            “{{query}}”的搜索结果
+            Search results for “{{query}}”
           </h5>
 
 
@@ -29,7 +29,7 @@
             <hr>
           </div><!-- /.blog-post -->
         {% empty %}
-            没有搜到内容 ┑(￣Д ￣)┍<br/>
+             Nothing here. ┑(￣Д ￣)┍<br/>
         {% endfor %}
 
 

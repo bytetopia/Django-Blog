@@ -6,7 +6,7 @@
 <html>
   <head>
       {% include 'blog/includes/head.html' %}
-      <title>标签 - 辛东兴的个人网站</title>
+      <title>Tags - Coding Cat</title>
       <link href="{% static 'css/jqcloud.min.css' %}" rel="stylesheet">
   </head>
  <div>
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-md-8 blog-main">
           <h5 class="pb-3 mb-4 border-bottom">
-            标签云
+            Tag Cloud
           </h5>
 
         {% if tags %}
@@ -26,7 +26,7 @@
               <div id="cloud" style="min-height:400px;width:100%;"></div>
           </div><!-- /.blog-post -->
         {% else %}
-            博主太懒，居然没有标签！
+            Oops. No tag here.
         {% endif %}
 
 
