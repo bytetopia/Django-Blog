@@ -8,7 +8,9 @@
       <title>{{article.title}} - Articles - Coding Cat</title>
       <link href="{% static 'editormd/css/editormd.preview.css' %}" rel="stylesheet">
       <link rel="stylesheet" href="{% static 'highlightjs/styles/atom-one-light.css' %}">
-
+      {% if article.music_file %}
+        <link rel="stylesheet" href="{% static 'meplayer/meplayer.min.css' %}">
+      {% endif %}
       <style>
           /*#renderMd h1{*/
               /*font-size: 1.6rem;*/
@@ -58,6 +60,15 @@
                     <a class="article-detail-tag-link" href="/articles?tag={{ tag.id }}"># {{ tag.name }}</a>&nbsp;&nbsp;
                 {% endfor %}
             </p>
+          {% if article.music_file %}
+              <div class="clearfix"></div>
+              <br/>
+            <div class="meplayer">
+                <div class="music"></div>
+            </div>
+              <br/><br/>
+              <div class="clearfix"></div>
+          {% endif %}
             <p class="bg-light shadow" style="padding:1rem;">
                 {{article.description}}
             </p>
@@ -218,6 +229,22 @@
  <script>
      $(".pinned").pin();
  </script>
+
+{% if article.music_file %}
+    <script src="{% static 'meplayer/meplayer.min.js' %}"></script>
+    <script>
+    mePlayer({
+      music: {
+          src: '/static/{{ article.music_file }}',
+          title: '{{ article.title }}',
+          author: 'background music'
+      },
+      target: '.meplayer',
+      autoplay: true
+    });
+    window.setTimeout(mePlayer.play, 1500);
+    </script>
+{% endif %}
 
 </body>
 </html>

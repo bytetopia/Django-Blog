@@ -29,6 +29,10 @@ def random_img_name(instance, filename):
     return 'micro_images/{0}.{1}'.format(str(uuid.uuid1()), filename.split('.')[-1])
 
 
+def random_music_name(instance, filename):
+    return 'music_attach/{0}.{1}'.format(str(uuid.uuid1()), filename.split('.')[-1])
+
+
 class Article(models.Model):
     STATUS_CHOICES = (
         (0, '草稿'),
@@ -53,6 +57,7 @@ class Article(models.Model):
     pwd = models.CharField('访问密码', max_length=50, null=True, blank=True)
     is_micro = models.IntegerField('是否微博', choices=YES_NO_CHOICES, default=0)
     micro_picture = models.ImageField('微博附图', upload_to=random_img_name, null=True, blank=True)
+    music_file = models.FileField('背景音乐', upload_to=random_music_name, null=True, blank=True)
 
     def get_micro_text_html(self):
         return self.text.replace('\n', '<br/>')
