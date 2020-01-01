@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^manager/', include(admin.site.urls)),
     url(r'^favicon.ico$', RedirectView.as_view(url=r'static/images/favicon.ico')),
     url(r'^ads.txt$', RedirectView.as_view(url=r'static/ads/ads.txt')),
+    url(r'^bdunion.txt$', RedirectView.as_view(url=r'static/ads/bdunion.txt')),
     url(r'^search/', include('haystack.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
